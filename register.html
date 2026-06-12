@@ -1,0 +1,89 @@
+{% extends 'base.html' %}  {# Hereda la plantilla base general del sistema #}
+
+{% block content %}  {# Inicio del bloque de contenido principal #}
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="container">
+
+    <!-- CENTRAR FORMULARIO EN PANTALLA -->
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">  {# Ancho medio para formulario #}
+
+            <!-- TARJETA DE REGISTRO -->
+            <div class="card shadow-sm border-0 mt-4">
+
+                <div class="card-body p-4">
+
+                    <!-- TÍTULO -->
+                    <h3 class="text-center mb-4"
+                        style="color: var(--verde-oscuro);">
+
+                        <i class="fa-solid fa-user-plus me-2"></i>
+                        Registro de Cuenta
+
+                    </h3>
+
+                    <!-- FORMULARIO -->
+                    <form method="POST">
+
+                        <!-- NOMBRE COMPLETO -->
+                        <div class="mb-3">
+
+                            <label class="form-label">Nombre Completo</label>
+
+                            <input type="text"
+                                   name="nombre"
+                                   class="form-control"
+                                   required
+                                   placeholder="Juan Pérez">
+
+                        </div>
+
+                        <!-- CORREO -->
+                        <div class="mb-3">
+
+                            <label class="form-label">Correo Electrónico</label>
+
+                            <input type="email"
+                                   name="correo"
+                                   class="form-control"
+                                   required
+                                   placeholder="correo@cecytos.edu">
+
+                        </div>
+
+                        <!-- CONTRASEÑA -->
+                        <div class="mb-4">
+
+                            <label class="form-label">Contraseña de Seguridad</label>
+
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   required
+                                   placeholder="Mínimo 6 caracteres">
+
+                        </div>
+
+                        <!-- BOTÓN SUBMIT -->
+                        <button type="submit"
+                                class="btn btn-success-custom w-100 py-2">
+
+                            Dar de Alta Cuenta
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}  {# Fin del bloque content #}

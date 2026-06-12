@@ -1,0 +1,81 @@
+{% extends 'admin/base_admin.html' %}  {# Hereda la plantilla base del panel admin #}
+
+{% block admin_content %}  {# Inicio del contenido del módulo #}
+
+<!-- TÍTULO PRINCIPAL -->
+<h3 class="mb-3">Gestión de Usuarios Activos</h3>  {# Encabezado de la sección #}
+
+<!-- TABLA DE USUARIOS -->
+<div class="table-responsive">
+
+    <table class="table table-hover align-middle table-striped bg-white rounded shadow-sm">
+
+        <!-- CABECERA -->
+        <thead class="table-dark">
+
+            <tr>
+                <th>Nombre</th>         {# Nombre del usuario #}
+                <th>Correo</th>         {# Email registrado #}
+                <th>Rol</th>            {# Tipo de usuario (admin/usuario) #}
+                <th>Fecha Registro</th> {# Fecha de creación de cuenta #}
+                <th>Acciones</th>       {# Eliminar o estado protegido #}
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for u in usuarios %}  {# Itera todos los usuarios enviados desde Flask #}
+
+            <tr>
+
+                <!-- NOMBRE -->
+                <td>{{ u.nombre }}</td>
+
+                <!-- CORREO -->
+                <td>{{ u.correo }}</td>
+
+                <!-- ROL -->
+                <td>
+                    <span class="badge {% if u.rol=='admin' %}bg-primary{% else %}bg-secondary{% endif %}">
+                        {{ u.rol }}
+                    </span>
+                </td>
+
+                <!-- FECHA REGISTRO -->
+                <td>
+                    {{ u.fecha_registro.strftime('%Y-%m-%d') }}  {# Formato de fecha limpio #}
+                </td>
+
+                <!-- ACCIONES -->
+                <td>
+
+                    {% if u.rol != 'admin' %}  {# Protección: no borrar administradores #}
+
+                    <a href="{{ url_for('admin.eliminar_usuario', id=u.id_usuario) }}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('¿Seguro que deseas dar de baja este usuario?')">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </a>
+
+                    {% else %}
+
+                    <span class="text-muted">Protegido</span>  {# Usuario admin no modificable #}
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}  {# Fin del bloque admin_content #}

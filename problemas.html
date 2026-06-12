@@ -1,0 +1,195 @@
+{% extends 'admin/base_admin.html' %}  {# Hereda la plantilla base del panel administrativo #}
+
+{% block admin_content %}  {# Inicio del bloque de contenido dinámico del admin #}
+
+<!-- TÍTULO PRINCIPAL -->
+<h3 class="mb-4 fw-black text-uppercase" style="font-weight: 900; letter-spacing: 1px;">
+    Control de Incidencias Levantadas
+</h3>
+
+<!-- TABLA PRINCIPAL DE INCIDENCIAS -->
+<div class="table-responsive card p-0 mb-4"
+     style="border: 3px solid var(--color-negro) !important;
+            border-radius: 16px !important;
+            box-shadow: 6px 6px 0px var(--color-negro);">
+
+    <table class="table table-hover align-middle bg-white mb-0">
+
+        <!-- ENCABEZADO DE TABLA -->
+        <thead style="background-color: var(--color-negro);
+                      color: var(--color-blanco);
+                      border-bottom: 3px solid var(--color-negro);">
+
+            <tr>
+                <th class="p-3">Usuario</th>  {# Usuario que reportó #}
+                <th class="p-3">Asunto</th>  {# Título + descripción #}
+                <th class="p-3">Servicio Destino</th>  {# Servicio relacionado #}
+                <th class="p-3">Estado</th>  {# Estado del problema #}
+                <th class="p-3">Fecha</th>  {# Fecha del reporte #}
+                <th class="p-3 text-center">Acciones</th>  {# Botones de control #}
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for p in problemas %}  {# Itera sobre la lista de problemas #}
+
+            <tr style="border-bottom: 2px solid var(--color-negro);">
+
+                <!-- USUARIO -->
+                <td class="p-3 fw-bold">{{ p.usuario_nombre }}</td>
+
+                <!-- TITULO Y DESCRIPCIÓN -->
+                <td class="p-3">
+                    <strong class="text-dark">{{ p.titulo }}</strong><br>
+                    <small class="text-muted">{{ p.descripcion }}</small>
+                </td>
+
+                <!-- SERVICIO -->
+                <td class="p-3">
+                    <span class="badge bg-dark fw-bold">
+                        {{ p.servicio_nombre or 'General' }}
+                    </span>
+                </td>
+
+                <!-- ESTADO CON COLORES CONDICIONALES -->
+                <td class="p-3">
+
+                    {% if p.estado == 'Pendiente' %}
+                        <span class="badge bg-danger border border-dark fw-bold text-uppercase p-2">
+                            Pendiente
+                        </span>
+
+                    {% elif p.estado == 'En proceso' %}
+                        <span class="badge bg-warning text-dark border border-dark fw-bold text-uppercase p-2">
+                            En proceso
+                        </span>
+
+                    {% else %}
+                        <span class="badge bg-success border border-dark fw-bold text-uppercase p-2">
+                            Resuelto
+                        </span>
+                    {% endif %}
+
+                </td>
+
+                <!-- FECHA FORMATEADA -->
+                <td class="p-3 text-muted small fw-bold">
+                    {{ p.fecha_reporte.strftime('%m-%d %H:%M') }}
+                </td>
+
+                <!-- ACCIONES -->
+                <td class="p-3 text-center">
+
+                    <!-- BOTÓN PARA ABRIR MODAL DE ESTADO -->
+                    <button class="btn btn-sm btn-warning text-dark border-2 border-dark fw-bold me-1"
+                            style="box-shadow: 2px 2px 0px var(--color-negro);
+                                   border: 2px solid var(--color-negro) !important;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#statusModal{{ p.id_problema }}">
+
+                        <i class="fa-solid fa-arrows-spin"></i>  {# Icono de cambio de estado #}
+
+                    </button>
+
+                    <!-- BOTÓN ELIMINAR -->
+                    <a href="{{ url_for('admin.eliminar_problema', id=p.id_problema) }}"
+                       class="btn btn-sm btn-danger border-2 border-dark"
+                       style="box-shadow: 2px 2px 0px var(--color-negro);
+                              border: 2px solid var(--color-negro) !important;"
+                       onclick="return confirm('¿Remover ticket?')">
+
+                        <i class="fa-solid fa-trash"></i>  {# Icono de eliminar #}
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+<!-- MODALES INDIVIDUALES PARA CAMBIO DE ESTADO -->
+{% for p in problemas %}
+
+<div class="modal fade" id="statusModal{{ p.id_problema }}" tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+
+        <!-- FORMULARIO DE ACTUALIZACIÓN -->
+        <form action="{{ url_for('admin.editar_problema', id=p.id_problema) }}"
+              method="POST"
+              class="modal-content p-2"
+              style="background-color: var(--color-blanco) !important;
+                     border: 3.5px solid var(--color-negro) !important;
+                     border-radius: 20px !important;
+                     box-shadow: 6px 6px 0px var(--color-negro) !important;">
+
+            <!-- ENCABEZADO DEL MODAL -->
+            <div class="modal-header border-0 pb-0">
+
+                <h6 class="modal-title fw-black text-uppercase"
+                    style="font-weight: 900; color: var(--color-negro);">
+
+                    Actualizar Estatus
+                </h6>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        style="filter: drop-shadow(1px 1px 0px black);">
+                </button>
+
+            </div>
+
+            <!-- CUERPO DEL MODAL -->
+            <div class="modal-body">
+
+                <label class="small fw-bold text-uppercase mb-2 d-block">
+                    Selecciona el nuevo estado:
+                </label>
+
+                <select name="estado"
+                        class="form-select modal-pop-select"
+                        style="border: 2.5px solid var(--color-negro) !important;
+                               border-radius: 12px;
+                               font-weight: 700;">
+
+                    <option value="Pendiente" {% if p.estado=='Pendiente' %}selected{% endif %}>
+                        Pendiente
+                    </option>
+
+                    <option value="En proceso" {% if p.estado=='En proceso' %}selected{% endif %}>
+                        En proceso
+                    </option>
+
+                    <option value="Resuelto" {% if p.estado=='Resuelto' %}selected{% endif %}>
+                        Resuelto
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- BOTÓN GUARDAR -->
+            <div class="modal-footer border-0 pt-0">
+
+                <button type="submit" class="btn btn-custom-vibrante w-100 py-2">
+                    Guardar Cambios
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}  {# Fin del bloque de contenido admin #}

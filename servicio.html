@@ -1,0 +1,49 @@
+<!DOCTYPE html>  {# Documento HTML estándar #}
+
+<html>
+
+<head>
+
+    <title>Servicios</title>  {# Título de la pestaña del navegador #}
+
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <h2>Listado de Servicios</h2>
+
+    <!-- TABLA DE SERVICIOS -->
+    <table border="1">  {# Tabla básica sin estilos (HTML puro) #}
+
+        <!-- CABECERA DE TABLA -->
+        <tr>
+            <th>ID</th>           {# Identificador del servicio #}
+            <th>Nombre</th>       {# Nombre del servicio #}
+            <th>Descripción</th>  {# Detalle del servicio #}
+            <th>Categoría</th>    {# Clasificación del servicio #}
+        </tr>
+
+        <!-- ITERACIÓN DE SERVICIOS DESDE FLASK/JINJA2 -->
+        {% for servicio in servicios %}
+
+        <tr>
+
+            <!-- ACCESO POR ÍNDICES (TUPLA O LISTA) -->
+            <td>{{ servicio[0] }}</td>  {# ID #}
+            <td>{{ servicio[1] }}</td>  {# Nombre #}
+            <td>{{ servicio[2] }}</td>  {# Descripción #}
+            <td>{{ servicio[3] }}</td>  {# Categoría #}
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <!-- LINK DE REGRESO -->
+    <a href="/">Volver</a>  {# Navega a la página principal #}
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}  {# Hereda la plantilla base del sistema #}
+
+{% block content %}  {# Inicio del bloque de contenido principal #}
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="container">
+
+    <!-- CENTRAR CONTENIDO -->
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">  {# Ancho medio del formulario #}
+
+            <!-- TARJETA DE PERFIL -->
+            <div class="card p-4 shadow-sm border-0 card-custom">
+
+                <!-- TÍTULO -->
+                <h3 style="color: var(--verde-oscuro);"
+                    class="mb-4">
+
+                    <i class="fa-solid fa-id-card me-2"></i>
+                    Mi Perfil
+
+                </h3>
+
+                <!-- FORMULARIO DE EDICIÓN -->
+                <form method="POST">
+
+                    <!-- NOMBRE -->
+                    <div class="mb-3">
+
+                        <label class="form-label">Nombre del Titular</label>
+
+                        <input type="text"
+                               name="nombre"
+                               class="form-control"
+                               value="{{ usuario.nombre }}"  {# Valor precargado desde backend #}
+                               required>
+
+                    </div>
+
+                    <!-- CORREO (SOLO LECTURA) -->
+                    <div class="mb-3">
+
+                        <label class="form-label">Correo (No Modificable)</label>
+
+                        <input type="email"
+                               class="form-control"
+                               value="{{ usuario.correo }}"  {# Dato mostrado pero bloqueado #}
+                               readonly
+                               disabled>
+
+                    </div>
+
+                    <!-- BOTÓN GUARDAR -->
+                    <button type="submit"
+                            class="btn btn-success-custom w-100">
+
+                        Guardar Cambios
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}  {# Fin del bloque content #}

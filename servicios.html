@@ -1,0 +1,242 @@
+{% extends 'admin/base_admin.html' %}  {# Hereda la plantilla base del panel administrativo #}
+
+{% block admin_content %}  {# Inicio del bloque de contenido dinámico #}
+
+<!-- ENCABEZADO + BOTÓN CREAR -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h3>Catálogo Operativo de Servicios</h3>  {# Título de la sección #}
+
+    <!-- BOTÓN PARA ABRIR MODAL DE CREACIÓN -->
+    <button class="btn btn-success-custom btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#addServicioModal">
+
+        <i class="fa-solid fa-plus me-1"></i>Nuevo Servicio  {# Icono + texto #}
+
+    </button>
+
+</div>
+
+<!-- TABLA PRINCIPAL -->
+<div class="table-responsive">
+
+    <table class="table table-striped align-middle bg-white rounded shadow-sm">
+
+        <!-- CABECERA DE TABLA -->
+        <thead class="table-dark">
+
+            <tr>
+                <th>ID</th>  {# Identificador del servicio #}
+                <th>Nombre</th>  {# Nombre del servicio #}
+                <th>Descripción</th>  {# Detalle del servicio #}
+                <th>Estado</th>  {# Activo o Inactivo #}
+                <th>Acciones</th>  {# Editar / Eliminar #}
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for s in servicios %}  {# Itera todos los servicios enviados por Flask #}
+
+            <tr>
+
+                <!-- ID -->
+                <td>{{ s.id_servicio }}</td>
+
+                <!-- NOMBRE -->
+                <td><strong>{{ s.nombre }}</strong></td>
+
+                <!-- DESCRIPCIÓN -->
+                <td>{{ s.descripcion }}</td>
+
+                <!-- ESTADO CON BADGE DINÁMICO -->
+                <td>
+                    <span class="badge {% if s.estado=='Activo' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ s.estado }}
+                    </span>
+                </td>
+
+                <!-- ACCIONES -->
+                <td>
+
+                    <!-- BOTÓN EDITAR (ABRE MODAL) -->
+                    <button class="btn btn-sm btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editModal{{ s.id_servicio }}">
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+                    <!-- BOTÓN ELIMINAR -->
+                    <a href="{{ url_for('admin.eliminar_servicio', id=s.id_servicio) }}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('¿Eliminar servicio?')">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <!-- MODAL DE EDICIÓN POR SERVICIO -->
+            <div class="modal fade" id="editModal{{ s.id_servicio }}" tabindex="-1">
+
+                <div class="modal-dialog">
+
+                    <form action="{{ url_for('admin.editar_servicio', id=s.id_servicio) }}"
+                          method="POST"
+                          class="modal-content">
+
+                        <!-- HEADER MODAL -->
+                        <div class="modal-header">
+
+                            <h5>Modificar Servicio</h5>  {# Título modal edición #}
+
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal">
+                            </button>
+
+                        </div>
+
+                        <!-- CUERPO MODAL -->
+                        <div class="modal-body">
+
+                            <!-- NOMBRE -->
+                            <div class="mb-3">
+                                <label class="form-label">Nombre</label>
+                                <input type="text"
+                                       name="nombre"
+                                       class="form-control"
+                                       value="{{ s.nombre }}"
+                                       required>
+                            </div>
+
+                            <!-- DESCRIPCIÓN -->
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea name="descripcion"
+                                          class="form-control"
+                                          rows="3">{{ s.descripcion }}</textarea>
+                            </div>
+
+                            <!-- ESTADO -->
+                            <div class="mb-3">
+                                <label class="form-label">Estado</label>
+
+                                <select name="estado" class="form-select">
+
+                                    <option value="Activo" {% if s.estado=='Activo' %}selected{% endif %}>
+                                        Activo
+                                    </option>
+
+                                    <option value="Inactivo" {% if s.estado=='Inactivo' %}selected{% endif %}>
+                                        Inactivo
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <!-- FOOTER MODAL -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">
+                                Actualizar
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- MODAL CREAR SERVICIO -->
+<div class="modal fade" id="addServicioModal" tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <form action="{{ url_for('admin.servicios') }}"
+              method="POST"
+              class="modal-content">
+
+            <!-- HEADER -->
+            <div class="modal-header">
+
+                <h5>Crear Servicio Comunitario</h5>  {# Título creación #}
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <!-- CUERPO -->
+            <div class="modal-body">
+
+                <!-- NOMBRE -->
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text"
+                           name="nombre"
+                           class="form-control"
+                           required>
+                </div>
+
+                <!-- DESCRIPCIÓN -->
+                <div class="mb-3">
+                    <label class="form-label">Descripción</label>
+                    <textarea name="descripcion"
+                              class="form-control"
+                              rows="3"></textarea>
+                </div>
+
+                <!-- ESTADO INICIAL -->
+                <div class="mb-3">
+                    <label class="form-label">Estado Inicial</label>
+
+                    <select name="estado" class="form-select">
+
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">
+                    Registrar
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}  {# Fin del bloque admin_content #}
+
+{% block extra_modals %}  {# Bloque para modales adicionales, como el de actualizar estatus #}
+
+{% for p in problemas %}  {# Itera problemas para crear un modal por cada uno #}

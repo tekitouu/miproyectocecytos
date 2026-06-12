@@ -1,0 +1,71 @@
+{% extends 'admin/base_admin.html' %}  {# Hereda la estructura base del panel admin #}
+
+{% block admin_content %}  {# Inicio del contenido dinámico #}
+
+<!-- TÍTULO PRINCIPAL -->
+<h3 class="mb-3">
+    Buzón de Sugerencias para el Desarrollo Humano y Ambiental
+</h3>
+
+<!-- CONTENEDOR DE SUGERENCIAS -->
+<div class="row">
+
+    {% for s in sugerencias %}  {# Itera todas las sugerencias recibidas #}
+
+    <div class="col-md-6 mb-3">
+
+        <!-- TARJETA INDIVIDUAL DE SUGERENCIA -->
+        <div class="card shadow-sm border-0 bg-white">
+
+            <div class="card-body">
+
+                <!-- TÍTULO DE LA SUGERENCIA -->
+                <h5 class="text-success fw-bold">
+
+                    <i class="fa-regular fa-lightbulb text-warning me-2"></i>  {# Icono visual #}
+
+                    {{ s.titulo }}  {# Título dinámico #}
+
+                </h5>
+
+                <!-- DESCRIPCIÓN -->
+                <p class="text-dark my-2">
+                    {{ s.descripcion }}  {# Contenido de la sugerencia #}
+                </p>
+
+                <hr class="text-muted">
+
+                <!-- FOOTER DE LA TARJETA -->
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <!-- AUTOR -->
+                    <small class="text-muted">
+                        Por:
+                        <strong>{{ s.usuario_nombre }}</strong>
+                        ({{ s.usuario_correo }})
+                    </small>
+
+                    <!-- FECHA -->
+                    <span class="badge bg-dark">
+                        {{ s.fecha.strftime('%Y-%m-%d') }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% else %}  {# Caso cuando no hay sugerencias #}
+
+    <p class="text-muted text-center w-100">
+        No hay nuevas propuestas en el buzón por el momento.
+    </p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}  {# Fin del bloque admin_content #}

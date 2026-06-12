@@ -1,0 +1,47 @@
+<!DOCTYPE html>  {# Documento HTML5 estándar #}
+
+<html>
+
+<head>
+
+    <title>Agregar Servicio</title>  {# Título de la pestaña del navegador #}
+
+</head>
+
+<body>
+
+    <!-- TÍTULO PRINCIPAL DE LA PÁGINA -->
+    <h2>Nuevo Servicio</h2>
+
+    <!-- FORMULARIO DE CREACIÓN DE SERVICIO -->
+    <form method="POST">
+
+        <!-- CAMPO: NOMBRE -->
+        <label>Nombre:</label>  {# Etiqueta del campo nombre #}
+        <input type="text"
+               name="nombre"
+               required>  {# Campo obligatorio #}
+
+        <br><br>
+
+        <!-- CAMPO: DESCRIPCIÓN -->
+        <label>Descripción:</label>  {# Descripción del servicio #}
+        <textarea name="descripcion"></textarea>  {# Área de texto multilínea #}
+
+        <br><br>
+
+        <!-- CAMPO: CATEGORÍA -->
+        <label>Categoría:</label>  {# Clasificación del servicio #}
+        <input type="text"
+               name="categoria">
+
+        <br><br>
+
+        <!-- BOTÓN DE ENVÍO -->
+        <button type="submit">Guardar</button>  {# Envía el formulario al backend #}
+
+    </form>
+
+</body>
+
+</html>

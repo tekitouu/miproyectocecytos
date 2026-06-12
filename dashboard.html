@@ -1,0 +1,98 @@
+{% extends 'admin/base_admin.html' %}  {# Hereda la estructura base del panel administrativo #}
+
+{% block admin_content %}  {# Inicia el bloque donde se inserta el contenido del dashboard #}
+
+<!-- ENCABEZADO PRINCIPAL -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2 text-success">Métricas del Sistema</h1>  {# Título principal del dashboard #}
+</div>
+
+<!-- TARJETAS DE ESTADÍSTICAS -->
+<div class="row">
+
+    <!-- USUARIOS -->
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-dark p-3 shadow-sm">
+            <h5>Total Usuarios</h5>
+            <p class="display-6 fw-bold">{{ stats.usuarios }}</p>  {# Dato dinámico desde Flask #}
+        </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-success p-3 shadow-sm">
+            <h5>Total Servicios</h5>
+            <p class="display-6 fw-bold">{{ stats.servicios }}</p>
+        </div>
+    </div>
+
+    <!-- INCIDENCIAS / PROBLEMAS -->
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-warning p-3 shadow-sm text-dark">
+            <h5>Total Incidencias</h5>
+            <p class="display-6 fw-bold">{{ stats.problemas }}</p>
+        </div>
+    </div>
+
+    <!-- UBICACIONES -->
+    <div class="col-md-6 mb-3">
+        <div class="card text-white bg-info p-3 shadow-sm text-dark">
+            <h5>Total Ubicaciones Campus</h5>
+            <p class="display-6 fw-bold">{{ stats.ubicaciones }}</p>
+        </div>
+    </div>
+
+    <!-- SUGERENCIAS -->
+    <div class="col-md-6 mb-3">
+        <div class="card text-white bg-secondary p-3 shadow-sm">
+            <h5>Total Sugerencias Emitidas</h5>
+            <p class="display-6 fw-bold">{{ stats.sugerencias }}</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- GRAFICA CIRCULAR (CHART.JS) -->
+<div class="row mt-4 mb-4">
+    <div class="col-md-6 mx-auto">
+        <div class="card p-3 shadow-sm border-0 bg-white">
+
+            <h5 class="text-center text-muted mb-3">
+                <i class="fa-solid fa-chart-pie me-2"></i>Distribución de Registros
+            </h5>
+
+            <div style="position: relative; height:300px; width:100%">
+                <canvas id="graficaPastel"
+                        data-usuarios="{{ stats.usuarios }}"  {# Datos enviados al JS #}
+                        data-servicios="{{ stats.servicios }}"
+                        data-problemas="{{ stats.problemas }}"
+                        data-ubicaciones="{{ stats.ubicaciones }}"
+                        data-sugerencias="{{ stats.sugerencias }}">
+                </canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- BLOQUE DE BIENVENIDA -->
+<div class="card p-4 shadow-sm border-0 bg-white mt-3">
+
+    <h3 class="text-success">
+        <i class="fa-solid fa-handshake me-2"></i>¡Bienvenido al Panel de Control Administrativo!
+    </h3>
+
+    <p class="text-muted">
+        Las estadísticas superiores ya están cargando dinámicamente los datos almacenados en MySQL.
+    </p>
+
+    <p class="text-muted">
+        Usa el menú de la izquierda para navegar entre los módulos y gestionar los registros del sistema.
+    </p>
+
+</div>
+
+<!-- SCRIPT DE LA GRÁFICA -->
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>  {# Lógica Chart.js #}
+
+{% endblock %}  {# Fin del bloque admin_content #}

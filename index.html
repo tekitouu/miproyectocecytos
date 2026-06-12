@@ -1,0 +1,55 @@
+{% extends 'base.html' %}  {# Hereda la plantilla base del sistema #}
+
+{% block content %}  {# Inicio del bloque de contenido principal #}
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="container text-center py-5">
+
+    <!-- TARJETA HERO PRINCIPAL -->
+    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm card-custom">
+
+        <!-- TÍTULO PRINCIPAL -->
+        <h1 class="display-4 fw-bold"
+            style="color: var(--verde-oscuro);">
+
+            Sustentabilidad y Servicios Digitales
+
+        </h1>
+
+        <!-- DESCRIPCIÓN DEL PORTAL -->
+        <p class="lead col-md-8 mx-auto mt-3">
+
+            Bienvenido al portal tecnológico de servicios comunitarios de CECYTOS.
+            Reporta incidencias en infraestructura, consulta ubicaciones físicas y
+            propón mejoras ecológicas para nuestro entorno.
+
+        </p>
+
+        <hr class="my-4">  {# Separador visual #}
+
+        <!-- LÓGICA SEGÚN SESIÓN -->
+        {% if not session.get('user_id') %}
+
+            <!-- USUARIO NO LOGUEADO -->
+            <a class="btn btn-success-custom btn-lg px-4"
+               href="{{ url_for('auth.login') }}"
+               role="button">
+
+                Comenzar Reporte
+
+            </a>
+
+        {% else %}
+
+            <!-- USUARIO YA LOGUEADO -->
+            <p class="text-muted">
+                Has iniciado sesión de manera segura.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}  {# Fin del bloque content #}

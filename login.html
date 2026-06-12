@@ -1,0 +1,109 @@
+{% extends 'base.html' %}  {# Hereda la estructura base general del sitio #}
+
+{% block content %}  {# Inicio del contenido principal de la página #}
+
+<!-- CONTENEDOR GENERAL DEL LOGIN -->
+<div class="login-wrapper">
+
+    <!-- TARJETA PRINCIPAL DEL LOGIN -->
+    <div class="custom-container-card d-flex"
+         style="width: 100%; max-width: 900px; min-height: 500px;">
+
+        <!-- PANEL IZQUIERDO (VISUAL / MARCA) -->
+        <div class="login-art-panel d-none d-md-flex">
+
+            <div class="art-title">Portal</div>  {# Título visual #}
+
+            <div class="art-subtitle">Asistencias y Reportes ⚡</div>  {# Subtítulo descriptivo #}
+
+        </div>
+
+        <!-- PANEL DERECHO (FORMULARIO) -->
+        <div class="login-form-panel">
+
+            <h2 class="text-center fw-black mb-4"
+                style="font-weight: 900; letter-spacing: 1px;">
+
+                INICIAR SESIÓN
+
+            </h2>
+
+            <!-- MENSAJES FLASH (ERRORES O ALERTAS DE FLASK) -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="alert alert-danger p-2 text-center small fw-bold border-2 border-dark"
+                             role="alert">
+
+                            ⚠️ {{ message }}  {# Mensaje dinámico del backend #}
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+            <!-- FORMULARIO DE LOGIN -->
+            <form method="POST" action="{{ url_for('auth.login') }}">
+
+                <!-- INPUT CORREO -->
+                <div class="custom-input-group">
+
+                    <input type="email"
+                           name="correo"
+                           class="custom-input-rounded"
+                           placeholder="Correo Electrónico"
+                           required
+                           autocomplete="off">
+
+                    <i class="fa-solid fa-envelope"></i>  {# Icono visual #}
+
+                </div>
+
+                <!-- INPUT CONTRASEÑA -->
+                <div class="custom-input-group">
+
+                    <input type="password"
+                           name="password"
+                           class="custom-input-rounded"
+                           placeholder="Contraseña"
+                           required>
+
+                    <i class="fa-solid fa-lock"></i>  {# Icono de seguridad #}
+
+                </div>
+
+                <!-- ACCIONES -->
+                <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+
+                    <a href="#"
+                       class="text-dark fw-bold text-decoration-none small">
+
+                        ¿Olvidaste tu contraseña?
+
+                    </a>
+
+                    <!-- BOTÓN DE LOGIN -->
+                    <button type="submit"
+                            class="btn btn-custom-vibrante">
+
+                        INGRESAR 🚀
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}  {# Fin del bloque content #}

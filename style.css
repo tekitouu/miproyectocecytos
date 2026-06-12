@@ -1,0 +1,249 @@
+:root {  /* Define variables globales de colores reutilizables en todo el proyecto */
+    --color-negro: #111111;  /* Negro principal para bordes y texto fuerte */
+    --color-blanco: #ffffff;  /* Blanco base para fondos limpios */
+    --color-rojo: #dc3545;  /* Rojo vibrante para alertas y énfasis */
+    --color-naranja: #ff9f1c;  /* Naranja para acciones y efectos visuales */
+    --color-amarillo: #ffbf00;  /* Amarillo para resaltados */
+    --color-verde: #2d6a4f;  /* Verde principal para estados positivos */
+    --color-verde-claro: #95d5b2;  /* Verde suave para fondos secundarios */
+    --color-fondo: #fcf8f2;  /* Fondo crema general del sitio */
+}
+
+/* Base del Sitio */
+body {  /* Estilos globales del cuerpo del documento */
+    background-color: var(--color-fondo);  /* Fondo general del sitio */
+    font-family: 'Poppins', 'Segoe UI', sans-serif;  /* Tipografía principal */
+    color: var(--color-negro);  /* Color base del texto */
+}
+
+/* --- NAVBAR GLOBAL ULTRA COLORIDO --- */
+.navbar {  /* Barra de navegación principal */
+    background: linear-gradient(90deg, var(--color-negro) 0%, var(--color-rojo) 50%, var(--color-naranja) 100%) !important;  /* Gradiente llamativo */
+    border-bottom: 4px solid var(--color-amarillo);  /* Borde inferior resaltado */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);  /* Sombra para profundidad */
+}
+.navbar .navbar-brand, .navbar .nav-link {  /* Marca y enlaces del navbar */
+    color: var(--color-blanco) !important;  /* Texto blanco */
+    font-weight: 700;  /* Texto en negrita */
+    text-transform: uppercase;  /* Mayúsculas para estilo uniforme */
+    letter-spacing: 0.5px;  /* Espaciado entre letras */
+}
+.navbar .nav-link:hover {  /* Efecto hover en enlaces */
+    color: var(--color-amarillo) !important;  /* Cambio de color al pasar el mouse */
+    transform: translateY(-1px);  /* Ligero movimiento hacia arriba */
+}
+
+/* --- TARJETAS Y CONTENEDORES --- */
+.card, .custom-container-card {  /* Tarjetas genéricas del sistema */
+    background: var(--color-blanco);  /* Fondo blanco */
+    border: 3px solid var(--color-negro) !important;  /* Borde negro grueso */
+    border-radius: 20px !important;  /* Bordes redondeados */
+    box-shadow: 5px 5px 0px var(--color-negro);  /* Sombra estilo “pop” */
+    overflow: hidden;  /* Evita desbordamiento interno */
+    transition: transform 0.2s;  /* Animación suave */
+}
+
+/* --- BOTONES VIBRANTES --- */
+.btn-custom-vibrante {  /* Botón principal del sistema */
+    background: linear-gradient(135deg, var(--color-naranja), var(--color-rojo));  /* Gradiente fuerte */
+    color: var(--color-blanco) !important;  /* Texto blanco */
+    border: 2.5px solid var(--color-negro) !important;  /* Borde negro */
+    font-weight: 800;  /* Texto grueso */
+    border-radius: 50px;  /* Forma tipo píldora */
+    padding: 10px 30px;  /* Espaciado interno */
+    box-shadow: 3px 3px 0px var(--color-negro);  /* Sombra sólida */
+    transition: all 0.2s ease;  /* Animación suave */
+}
+.btn-custom-vibrante:hover {  /* Estado hover del botón */
+    transform: translate(-2px, -2px);  /* Movimiento visual */
+    box-shadow: 5px 5px 0px var(--color-negro);  /* Sombra más grande */
+    background: linear-gradient(135deg, var(--color-rojo), var(--color-naranja));  /* Invierte gradiente */
+}
+.btn-custom-vibrante:active {  /* Estado al hacer click */
+    transform: translate(2px, 2px);  /* Efecto de presión */
+    box-shadow: 1px 1px 0px var(--color-negro);  /* Sombra mínima */
+}
+
+/* --- LOGIN LAYOUT --- */
+.login-wrapper {  /* Contenedor principal del login */
+    min-height: 85vh;  /* Altura casi completa de pantalla */
+    display: flex;  /* Centrado flexible */
+    align-items: center;  /* Centrado vertical */
+    justify-content: center;  /* Centrado horizontal */
+    padding: 20px;  /* Espaciado interno */
+}
+.login-art-panel {  /* Panel visual del login */
+    width: 40%;  /* Mitad del layout */
+    background: var(--color-negro);  /* Fondo oscuro */
+    position: relative;  /* Permite pseudo-elementos */
+    display: flex;  /* Flexbox */
+    flex-direction: column;  /* Columna */
+    justify-content: center;  /* Centrado vertical */
+    align-items: center;  /* Centrado horizontal */
+    color: var(--color-blanco);  /* Texto blanco */
+    padding: 30px;  /* Espaciado interno */
+    overflow: hidden;  /* Recorta decoraciones */
+}
+.login-art-panel::before {  /* Capa decorativa superior */
+    content: "";  /* Elemento decorativo */
+    position: absolute;  /* Posición absoluta */
+    top: -10%;  /* Ajuste vertical */
+    right: -40px;  /* Desplazamiento lateral */
+    width: 130%;  /* Ancho extendido */
+    height: 120%;  /* Altura extendida */
+    background: var(--color-rojo);  /* Color rojo */
+    opacity: 0.9;  /* Transparencia */
+    transform: skewX(-20deg);  /* Inclinación visual */
+}
+.login-art-panel::after {  /* Capa decorativa inferior */
+    content: "";  /* Elemento decorativo */
+    position: absolute;  /* Posición absoluta */
+    bottom: -10%;  /* Posición inferior */
+    right: -20px;  /* Ajuste horizontal */
+    width: 100%;  /* Ancho completo */
+    height: 50%;  /* Altura parcial */
+    background: linear-gradient(180deg, transparent, var(--color-naranja));  /* Degradado */
+    transform: skewX(-10deg);  /* Inclinación */
+}
+.art-title {  /* Título del login */
+    font-size: 2.3rem;  /* Tamaño grande */
+    font-weight: 900;  /* Muy grueso */
+    position: relative;  /* Para z-index */
+    z-index: 10;  /* Encima de decoraciones */
+    text-shadow: 3px 3px 0px var(--color-negro);  /* Sombra dura */
+}
+.art-subtitle {  /* Subtítulo del login */
+    color: var(--color-amarillo);  /* Amarillo destacado */
+    font-weight: 700;  /* Negrita */
+    position: relative;  /* Control de capas */
+    z-index: 10;  /* Encima */
+}
+.login-form-panel {  /* Panel del formulario */
+    width: 60%;  /* Mayor espacio */
+    padding: 40px 50px;  /* Espaciado interno */
+    background: var(--color-blanco);  /* Fondo blanco */
+}
+
+/* --- INPUTS --- */
+.custom-input-group {  /* Contenedor de input con icono */
+    position: relative;  /* Para posicionar icono */
+    margin-bottom: 20px;  /* Separación entre campos */
+}
+.custom-input-group i {  /* Iconos dentro de inputs */
+    position: absolute;  /* Posición flotante */
+    left: 18px;  /* Margen izquierdo */
+    top: 50%;  /* Centrado vertical */
+    transform: translateY(-50%);  /* Ajuste fino */
+    color: var(--color-rojo);  /* Color inicial */
+    font-size: 1.1rem;  /* Tamaño */
+    z-index: 5;  /* Encima del input */
+    transition: 0.2s;  /* Animación */
+}
+.custom-input-rounded {  /* Inputs principales */
+    width: 100%;  /* Ocupa todo el ancho */
+    padding: 14px 20px 14px 50px;  /* Espacio para icono */
+    border: 2.5px solid var(--color-negro);  /* Borde fuerte */
+    border-radius: 14px;  /* Bordes suaves */
+    font-weight: 600;  /* Texto semi-bold */
+    outline: none;  /* Sin borde nativo */
+    transition: all 0.2s;  /* Animación */
+}
+.custom-input-rounded:focus {  /* Input activo */
+    border-color: var(--color-naranja);  /* Resalta borde */
+    box-shadow: 4px 4px 0px var(--color-naranja);  /* Sombra dinámica */
+}
+.custom-input-rounded:focus + i {  /* Icono cuando input está activo */
+    color: var(--color-naranja);  /* Cambia color */
+}
+
+/* --- SIDEBAR ADMIN --- */
+.sidebar-admin {  /* Menú lateral */
+    background: var(--color-negro);  /* Fondo oscuro */
+    border-right: 4px solid var(--color-rojo);  /* Separación visual */
+    min-height: 100vh;  /* Pantalla completa */
+    padding: 20px;  /* Espaciado */
+}
+.sidebar-admin a {  /* Links del sidebar */
+    color: var(--color-blanco);  /* Texto blanco */
+    font-weight: 700;  /* Negrita */
+    display: block;  /* Bloque completo */
+    padding: 12px;  /* Espaciado */
+    margin-bottom: 8px;  /* Separación */
+    border-radius: 10px;  /* Bordes suaves */
+    text-decoration: none;  /* Sin subrayado */
+}
+.sidebar-admin a:hover {  /* Hover del menú */
+    background: var(--color-rojo);  /* Fondo rojo */
+    color: var(--color-amarillo);  /* Texto amarillo */
+}
+
+/* --- MODALES --- */
+.modal-backdrop-custom {  /* Fondo oscuro del modal */
+    position: fixed;  /* Fijo en pantalla */
+    top: 0;  /* Inicio vertical */
+    left: 0;  /* Inicio horizontal */
+    width: 100vw;  /* Pantalla completa */
+    height: 100vh;  /* Pantalla completa */
+    background: rgba(0, 0, 0, 0.4);  /* Oscurecimiento */
+    backdrop-filter: blur(4px);  /* Difuminado */
+    z-index: 1040;  /* Debajo del modal */
+}
+.modal-pop-box {  /* Caja del modal */
+    position: fixed;  /* Fija */
+    top: 50%;  /* Centrada */
+    left: 50%;  /* Centrada */
+    transform: translate(-50%, -50%);  /* Ajuste perfecto */
+    background: var(--color-blanco) !important;  /* Fondo blanco */
+    border: 3.5px solid var(--color-negro) !important;  /* Borde fuerte */
+    border-radius: 20px !important;  /* Bordes redondeados */
+    box-shadow: 8px 8px 0px var(--color-negro) !important;  /* Sombra dura */
+    padding: 30px;  /* Espaciado */
+    width: 90%;  /* Responsivo */
+    max-width: 450px;  /* Tamaño máximo */
+    z-index: 1050;  /* Encima de todo */
+    animation: fadeInUp 0.3s cubic-bezier(0.25, 1, 0.5, 1) both;  /* Animación */
+}
+.modal-pop-header {  /* Encabezado modal */
+    display: flex;  /* Flexbox */
+    justify-content: space-between;  /* Separación */
+    align-items: center;  /* Centrado */
+    border-bottom: 2.5px solid var(--color-negro);  /* Línea inferior */
+    padding-bottom: 12px;  /* Espacio */
+    margin-bottom: 20px;  /* Separación */
+}
+.modal-pop-title {  /* Título modal */
+    font-size: 1.3rem;  /* Tamaño */
+    font-weight: 900;  /* Muy fuerte */
+    text-transform: uppercase;  /* Mayúsculas */
+    letter-spacing: 0.5px;  /* Espaciado */
+    color: var(--color-negro);  /* Color principal */
+    margin: 0;  /* Sin margen */
+}
+.btn-close-pop {  /* Botón cerrar modal */
+    background: none;  /* Sin fondo */
+    border: none;  /* Sin borde */
+    font-size: 1.4rem;  /* Tamaño */
+    color: var(--color-negro);  /* Color */
+    cursor: pointer;  /* Mano */
+    font-weight: 900;  /* Negrita */
+    transition: color 0.2s;  /* Animación */
+}
+.btn-close-pop:hover {  /* Hover cerrar */
+    color: var(--color-rojo);  /* Cambia a rojo */
+}
+.modal-pop-select {  /* Select dentro del modal */
+    width: 100%;  /* Completo */
+    padding: 12px;  /* Espaciado */
+    border: 2.5px solid var(--color-negro) !important;  /* Borde fuerte */
+    border-radius: 12px !important;  /* Redondeado */
+    font-weight: 700;  /* Negrita */
+    background-color: var(--color-blanco);  /* Fondo blanco */
+    outline: none;  /* Sin borde default */
+    margin-bottom: 25px;  /* Separación */
+    cursor: pointer;  /* Interacción */
+    transition: all 0.2s;  /* Animación */
+}
+.modal-pop-select:focus {  /* Estado activo */
+    border-color: var(--color-naranja) !important;  /* Resalta */
+    box-shadow: 3px 3px 0px var(--color-naranja);  /* Sombra */
+}
